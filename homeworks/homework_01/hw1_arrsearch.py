@@ -13,7 +13,8 @@ def find_indices(input_list, n):
     :param input_list: список произвольной длины целых чисел
     :param n: целевая сумма
     :return: tuple из двух индексов или None
-    '''   
+    '''
+    
     for i in range(0, len(input_list)):
         if n - input_list[i] in a:
             return (a[n - input_list[i]], i)

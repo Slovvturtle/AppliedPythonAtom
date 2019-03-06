@@ -11,22 +11,22 @@ def calculate_determinant(list_of_lists):
     :param list_of_lists: список списков - исходная матрица
     :return: значение определителя или None
     '''
-    leng = len(list_of_lists)
-    a = 0
-    b = 1
+    a = len(list_of_lists)
+    b = 0
+    s = 1
     ind = 0
-    for j in range(leng):
-        if len(list_of_lists[ind]) != leng:
+    for j in range(a):
+        if len(list_of_lists[ind]) != a:
             return None
-        minors = []
-        for k in range(leng - 1):
-            minors.append([])
-            for n in range(leng):
-                if j != n:
-                    minors[k].append(list_of_lists[k + 1][n])
+        ms = []
+        for k in range(a - 1):
+            ms.append([])
+            for m in range(a):
+                if m != j:
+                    ms[k].append(list_of_lists[k + 1][m])
 
-        a += b * list_of_lists[ind][j] \
-            * (1 or calculate_determinant(minors))
-        b = -b
+        b += s * list_of_lists[ind][j] \
+            * (calculate_determinant(ms) or 1)
+        s = -s
 
-    return a
+    return b

@@ -12,109 +12,109 @@ def advanced_calculator(input_string):
     '''
     for i in range(10):
         input_string = input_string.replace(str(i) + " ", str(i) + "|")
-    while "*-" in input_string:
-        input_string = input_string.replace("*-", "*(0-1)*")
-    while "/-" in input_string:
-        input_string = input_string.replace("/-", "*(0-1)/")
-    while "(-" in input_string:
-        input_string = input_string.replace("(-", "(0-")
-    while "+-" in input_string:
-        input_string = input_string.replace("+-", "-")
-    while "++" in input_string:
-        input_string = input_string.replace("++", "+")
-    while "--" in input_string:
-        input_string = input_string.replace("--", "+") 
-    while "\t" in input_string:
-        input_string = input_string.replace("\t", "")    
     while " " in input_string:
         input_string = input_string.replace(" ", "")
-    if len(input_string) > 0 and 
-    (input_string[0] is "-" or input_string[0] is "+"):
+    while "\t" in input_string:
+        input_string = input_string.replace("\t", "")
+    while "--" in input_string:
+        input_string = input_string.replace("--", "+")
+    while "++" in input_string:
+        input_string = input_string.replace("++", "+")
+    while "+-" in input_string:
+        input_string = input_string.replace("+-", "-")
+    while "(-" in input_string:
+        input_string = input_string.replace("(-", "(0-")
+    while "/-" in input_string:
+        input_string = input_string.replace("/-", "*(0-1)/")
+    while "*-" in input_string:
+        input_string = input_string.replace("*-", "*(0-1)*")
+    if len(input_string) > 0 and (input_string[0] is
+                                  "-" or input_string[0] is "+"):
         input_string = "0" + input_string
-    item = ""
+    elem = ""
     output_list = []
-    stak = []
+    stack = []
 
-    def is_foo(operator):
+    def is_op(operator):
         return (operator is "+" or operator is "-" or
                 operator is "/" or operator is "*")
 
     while len(input_string) > 0:
-        if is_foo(input_string[0]):
-            if len(item) > 0:
+        if is_op(input_string[0]):
+            if len(elem) > 0:
                 try:
-                    output_list.append(float(item))
-                    item = ""
+                    output_list.append(float(elem))
+                    elem = ""
                 except (TypeError, ValueError):
                     return None
-            while len(stak) > 0 and stak[len(stak) - 1] is not "(":
-                if (stak[len(stak) - 1] is "*" or input_string[0] is "+" or
-                        stak[len(stak) - 1] is "/" or input_string[0] is "-"):
-                    output_list.append(stak.pop())
+            while len(stack) > 0 and stack[len(stack) - 1] is not "(":
+                if stack[len(stack) - 1] is '*' or input_string[0] is '+' \
+                   or stack[len(stack) - 1] is '/' or input_string[0] is '-':
+                    output_list.append(stack.pop())
                 else:
                     break
-            stak.append(input_string[0])
+            stack.append(input_string[0])
             input_string = input_string[1:]
         elif input_string[0] is "(":
-            if len(item) > 0:
+            if len(elem) > 0:
                 return None
-            stak.append("(")
+            stack.append("(")
             input_string = input_string[1:]
         elif input_string[0] is ")":
-            if len(item) == 0:
+            if len(elem) == 0:
                 return None
             try:
-                output_list.append(float(item))
-                item = ""
+                output_list.append(float(elem))
+                elem = ""
             except (TypeError, ValueError):
                 return None
             input_string = input_string[1:]
             try:
-                item = stak.pop()
-                while item is not "(":
-                    output_list.append(item)
-                    item = stak.pop()
-                item = ""
+                elem = stack.pop()
+                while elem is not "(":
+                    output_list.append(elem)
+                    elem = stack.pop()
+                elem = ""
             except IndexError:
                 return None
         elif input_string[0].isdigit() or input_string[0] is ".":
-            item += input_string[0]
+            elem += input_string[0]
             input_string = input_string[1:]
         elif input_string[0] is "|":
-            output_list.append(float(item))
-            item = ""
+            output_list.append(float(elem))
+            elem = ""
             input_string = input_string[1:]
         else:
             return None
-    if len(item) > 0:
+    if len(elem) > 0:
         try:
-            output_list.append(float(item))
-            item = ""
+            output_list.append(float(elem))
+            elem = ""
         except (ValueError, TypeError):
             return None
-    while len(stak) > 0:
-        output_list.append(stak.pop())
+    while len(stack) > 0:
+        output_list.append(stack.pop())
     try:
         while len(output_list) > 0:
-            item = output_list.pop(0)
-            if isinstance(item, float):
-                stak.append(item)
+            elem = output_list.pop(0)
+            if isinstance(elem, float):
+                stack.append(elem)
             else:
-                item1 = stak.pop()
-                item2 = stak.pop()
-                if item is "+":
-                    stak.append(item1 + item2)
-                elif item is "-":
-                    stak.append(item1 - item2)
-                elif item is "/":
+                elem2 = stack.pop()
+                elem1 = stack.pop()
+                if elem is "+":
+                    stack.append(elem1 + elem2)
+                elif elem is "-":
+                    stack.append(elem1 - elem2)
+                elif elem is "/":
                     try:
-                        stak.append(item1 / item2)
+                        stack.append(elem1 / elem2)
                     except ZeroDivisionError:
                         return None
-                elif item is "*":
-                    stak.append(item1 * item2)
+                elif elem is "*":
+                    stack.append(elem1 * elem2)
     except IndexError:
         return None
-    if len(stak) != 1:
+    if len(stack) != 1:
         return None
-    return stak[0]
+    return stack[0]

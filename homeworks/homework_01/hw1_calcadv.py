@@ -12,24 +12,24 @@ def advanced_calculator(input_string):
     '''
     for i in range(10):
         input_string = input_string.replace(str(i) + " ", str(i) + "|")
-    while " " in input_string:
-        input_string = input_string.replace(" ", "")
-    while "\t" in input_string:
-        input_string = input_string.replace("\t", "")
-    while "--" in input_string:
-        input_string = input_string.replace("--", "+")
-    while "++" in input_string:
-        input_string = input_string.replace("++", "+")
-    while "+-" in input_string:
-        input_string = input_string.replace("+-", "-")
-    while "(-" in input_string:
-        input_string = input_string.replace("(-", "(0-")
-    while "/-" in input_string:
-        input_string = input_string.replace("/-", "*(0-1)/")
     while "*-" in input_string:
         input_string = input_string.replace("*-", "*(0-1)*")
-    if len(input_string) > 0 and (input_string[0] is
-                                  "-" or input_string[0] is "+"):
+    while "/-" in input_string:
+        input_string = input_string.replace("/-", "*(0-1)/")
+    while "(-" in input_string:
+        input_string = input_string.replace("(-", "(0-")
+    while "+-" in input_string:
+        input_string = input_string.replace("+-", "-")
+    while "++" in input_string:
+        input_string = input_string.replace("++", "+")
+    while "--" in input_string:
+        input_string = input_string.replace("--", "+") 
+    while "\t" in input_string:
+        input_string = input_string.replace("\t", "")    
+    while " " in input_string:
+        input_string = input_string.replace(" ", "")
+    if len(input_string) > 0 and 
+    (input_string[0] is "-" or input_string[0] is "+"):
         input_string = "0" + input_string
     item = ""
     output_list = []
@@ -100,8 +100,8 @@ def advanced_calculator(input_string):
             if isinstance(item, float):
                 stak.append(item)
             else:
-                item2 = stak.pop()
                 item1 = stak.pop()
+                item2 = stak.pop()
                 if item is "+":
                     stak.append(item1 + item2)
                 elif item is "-":

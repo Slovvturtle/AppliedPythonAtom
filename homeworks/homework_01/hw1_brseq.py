@@ -23,7 +23,7 @@ def is_bracket_correct(input_string):
         if (not (
                 (openingBracket == '{' and i == '}') or
                 (openingBracket == '[' and i == ']') or
-                (openingBracket == '(' and i == ')') 
+                (openingBracket == '(' and i == ')')
                 )):
             return False
     if 0 != len(a):

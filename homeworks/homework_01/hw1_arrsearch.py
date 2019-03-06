@@ -19,5 +19,5 @@ def find_indices(input_list, n):
         if n - input_list[i] in a:
             return (a[n - input_list[i]], i)
         elif input_list[i] not in a:
-            a[input_list[i]] = i
+            a [input_list[i]] = i
     return None

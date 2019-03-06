@@ -5,25 +5,25 @@
 def invert_dict(source_dict):
     if not isinstance(source_dict, dict):
         return None
-    new_dict = {}
+    a = {}
     for key, value in source_dict.items():
-        for i in invert(value):
-            if i in new_dict:
-                if isinstance(new_dict[i], list):
-                    new_dict[i].append(key)
+        for ind in it(value):
+            if ind in a:
+                if isinstance(a[ind], list):
+                    a[ind].append(key)
                 else:
-                    item = new_dict.get(i)
-                    new_dict[i] = [item, key]
+                    item = a.get(ind)
+                    a[ind] = [item, key]
             else:
-                new_dict[i] = key
-    return new_dict
+                a[ind] = key
+    return a
 
 
-def invert(value):
-    result_list = []
+def it(value):
+    b = []
     if isinstance(value, list) or isinstance(value, set):
-        for i in value:
-            result_list += invert(i)
+        for ind in value:
+            b += it(ind)
     else:
-        result_list.append(value)
-    return result_list
+        b.append(value)
+    return b

@@ -2,16 +2,6 @@
 # coding: utf-8
 
 
-def invert(value):
-    result_list = []
-    if isinstance(value, list) or isinstance(value, set):
-        for i in value:
-            result_list += invert(i)
-    else:
-        result_list.append(value)
-    return result_list
-
-
 def invert_dict(source_dict):
     if not isinstance(source_dict, dict):
         return None
@@ -27,3 +17,13 @@ def invert_dict(source_dict):
             else:
                 new_dict[i] = key
     return new_dict
+
+
+def invert(value):
+    result_list = []
+    if isinstance(value, list) or isinstance(value, set):
+        for i in value:
+            result_list += invert(i)
+    else:
+        result_list.append(value)
+    return result_list

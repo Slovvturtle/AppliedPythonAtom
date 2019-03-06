@@ -3,6 +3,7 @@
 
 
 def find_indices(input_list, n):
+    a = {}
     '''
     Метод возвращает индексы двух различных
     элементов listа, таких, что сумма этих элементов равна
@@ -13,10 +14,10 @@ def find_indices(input_list, n):
     :param n: целевая сумма
     :return: tuple из двух индексов или None
     '''
-    lookup = {}
-    for index in range(0, len(input_list)):
-        if n - input_list[index] in lookup:
-            return (lookup[n - input_list[index]], index)
-        elif input_list[index] not in lookup:
-            lookup[input_list[index]] = index
+   
+    for i in range(0, len(input_list)):
+            if n - input_list[i] in a:
+            return (a[n - input_list[i]], i)
+        elif input_list[i] not in a:
+            a[input_list[i]] = i
     return None

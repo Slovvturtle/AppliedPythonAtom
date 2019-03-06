@@ -41,9 +41,9 @@ def advanced_calculator(input_string):
 
     while len(input_string) > 0:
         if is_op(input_string[0]):
-            if len(elem) > 0:
+            if len(a) > 0:
                 try:
-                    output_list.append(float(elem))
+                    output_list.append(float(a))
                     a = ""
                 except (TypeError, ValueError):
                     return None
@@ -56,15 +56,15 @@ def advanced_calculator(input_string):
             stack.append(input_string[0])
             input_string = input_string[1:]
         elif input_string[0] is "(":
-            if len(elem) > 0:
+            if len(a) > 0:
                 return None
             stack.append("(")
             input_string = input_string[1:]
         elif input_string[0] is ")":
-            if len(elem) == 0:
+            if len(a) == 0:
                 return None
             try:
-                output_list.append(float(elem))
+                output_list.append(float(a))
                 a = ""
             except (TypeError, ValueError):
                 return None
@@ -72,7 +72,7 @@ def advanced_calculator(input_string):
             try:
                 a = stack.pop()
                 while a is not "(":
-                    output_list.append(elem)
+                    output_list.append(a)
                     a = stack.pop()
                 a = ""
             except IndexError:
@@ -81,14 +81,14 @@ def advanced_calculator(input_string):
             a += input_string[0]
             input_string = input_string[1:]
         elif input_string[0] is "|":
-            output_list.append(float(elem))
+            output_list.append(float(a))
             a = ""
             input_string = input_string[1:]
         else:
             return None
-    if len(elem) > 0:
+    if len(a) > 0:
         try:
-            output_list.append(float(elem))
+            output_list.append(float(a))
             a = ""
         except (ValueError, TypeError):
             return None
@@ -97,22 +97,22 @@ def advanced_calculator(input_string):
     try:
         while len(output_list) > 0:
             a = output_list.pop(0)
-            if isinstance(elem, float):
-                stack.append(elem)
+            if isinstance(a, float):
+                stack.append(a)
             else:
-                elem2 = stack.pop()
-                elem1 = stack.pop()
+                a2 = stack.pop()
+                a1 = stack.pop()
                 if a is "+":
-                    stack.append(elem1 + elem2)
+                    stack.append(a1 + a2)
                 elif a is "-":
-                    stack.append(elem1 - elem2)
+                    stack.append(a1 - a2)
                 elif a is "/":
                     try:
-                        stack.append(elem1 / elem2)
+                        stack.append(a1 / a2)
                     except ZeroDivisionError:
                         return None
                 elif a is "*":
-                    stack.append(elem1 * elem2)
+                    stack.append(a1 * a2)
     except IndexError:
         return None
     if len(stack) != 1:

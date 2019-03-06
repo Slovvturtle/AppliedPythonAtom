@@ -3,12 +3,6 @@
 
 
 def invert(value):
-    """
-    Функция разворачивающая вложенные
-    друг в друга словари в один
-    :param value: list, tuple or set
-    :return: result_list: list
-    """
     result_list = []
     if isinstance(value, list) or isinstance(value, set):
         for i in value:

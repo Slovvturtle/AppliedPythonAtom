@@ -21,11 +21,11 @@ def is_bracket_correct(input_string):
             return False
         openingBracket = a.pop()
         if (not (
-                (openingBracket == '(' and i == ')') or
+                (openingBracket == '{' and i == '}') or
                 (openingBracket == '[' and i == ']') or
-                (openingBracket == '{' and i == '}')
+                (openingBracket == '(' and i == ')') 
                 )):
             return False
-    if len(a) != 0:
+    if 0 != len(a):
         return False
     return True

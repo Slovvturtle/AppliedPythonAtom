@@ -31,7 +31,7 @@ def advanced_calculator(input_string):
     if len(input_string) > 0 and (input_string[0] is
                                   "-" or input_string[0] is "+"):
         input_string = "0" + input_string
-    elem = ""
+    a = ""
     output_list = []
     stack = []
 
@@ -44,7 +44,7 @@ def advanced_calculator(input_string):
             if len(elem) > 0:
                 try:
                     output_list.append(float(elem))
-                    elem = ""
+                    a = ""
                 except (TypeError, ValueError):
                     return None
             while len(stack) > 0 and stack[len(stack) - 1] is not "(":
@@ -65,53 +65,53 @@ def advanced_calculator(input_string):
                 return None
             try:
                 output_list.append(float(elem))
-                elem = ""
+                a = ""
             except (TypeError, ValueError):
                 return None
             input_string = input_string[1:]
             try:
-                elem = stack.pop()
-                while elem is not "(":
+                a = stack.pop()
+                while a is not "(":
                     output_list.append(elem)
-                    elem = stack.pop()
-                elem = ""
+                    a = stack.pop()
+                a = ""
             except IndexError:
                 return None
         elif input_string[0].isdigit() or input_string[0] is ".":
-            elem += input_string[0]
+            a += input_string[0]
             input_string = input_string[1:]
         elif input_string[0] is "|":
             output_list.append(float(elem))
-            elem = ""
+            a = ""
             input_string = input_string[1:]
         else:
             return None
     if len(elem) > 0:
         try:
             output_list.append(float(elem))
-            elem = ""
+            a = ""
         except (ValueError, TypeError):
             return None
     while len(stack) > 0:
         output_list.append(stack.pop())
     try:
         while len(output_list) > 0:
-            elem = output_list.pop(0)
+            a = output_list.pop(0)
             if isinstance(elem, float):
                 stack.append(elem)
             else:
                 elem2 = stack.pop()
                 elem1 = stack.pop()
-                if elem is "+":
+                if a is "+":
                     stack.append(elem1 + elem2)
-                elif elem is "-":
+                elif a is "-":
                     stack.append(elem1 - elem2)
-                elif elem is "/":
+                elif a is "/":
                     try:
                         stack.append(elem1 / elem2)
                     except ZeroDivisionError:
                         return None
-                elif elem is "*":
+                elif a is "*":
                     stack.append(elem1 * elem2)
     except IndexError:
         return None

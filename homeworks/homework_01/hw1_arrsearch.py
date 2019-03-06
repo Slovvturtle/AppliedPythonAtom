@@ -3,6 +3,7 @@
 
 
 def find_indices(input_list, n):
+    
     '''
     Метод возвращает индексы двух различных
     элементов listа, таких, что сумма этих элементов равна
@@ -15,7 +16,7 @@ def find_indices(input_list, n):
     '''
     lookup = {}
     for index in range(0, len(input_list)):
-        if n - input_list[index] in lookup:
+            if n - input_list[index] in lookup:
             return (lookup[n - input_list[index]], index)
         elif input_list[index] not in lookup:
             lookup[input_list[index]] = index

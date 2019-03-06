@@ -10,6 +10,7 @@ def find_indices(input_list, n):
         elif input_list[i] not in a:
             a[input_list[i]] = i
     return None
+
     '''
     Метод возвращает индексы двух различных
     элементов listа, таких, что сумма этих элементов равна

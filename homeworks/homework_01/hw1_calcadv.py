@@ -33,7 +33,7 @@ def advanced_calculator(input_string):
         input_string = "0" + input_string
     a = ""
     output_list = []
-    stack = []
+    b = []
 
     def is_op(operator):
         return (operator is "+" or operator is "-" or
@@ -47,18 +47,18 @@ def advanced_calculator(input_string):
                     a = ""
                 except (TypeError, ValueError):
                     return None
-            while len(stack) > 0 and stack[len(stack) - 1] is not "(":
-                if stack[len(stack) - 1] is '*' or input_string[0] is '+' \
-                   or stack[len(stack) - 1] is '/' or input_string[0] is '-':
-                    output_list.append(stack.pop())
+            while len(b) > 0 and b[len(b) - 1] is not "(":
+                if b[len(b) - 1] is '*' or input_string[0] is '+' \
+                   or b[len(b) - 1] is '/' or input_string[0] is '-':
+                    output_list.append(b.pop())
                 else:
                     break
-            stack.append(input_string[0])
+            b.append(input_string[0])
             input_string = input_string[1:]
         elif input_string[0] is "(":
             if len(a) > 0:
                 return None
-            stack.append("(")
+            b.append("(")
             input_string = input_string[1:]
         elif input_string[0] is ")":
             if len(a) == 0:
@@ -70,10 +70,10 @@ def advanced_calculator(input_string):
                 return None
             input_string = input_string[1:]
             try:
-                a = stack.pop()
+                a = b.pop()
                 while a is not "(":
                     output_list.append(a)
-                    a = stack.pop()
+                    a = b.pop()
                 a = ""
             except IndexError:
                 return None
@@ -92,29 +92,29 @@ def advanced_calculator(input_string):
             a = ""
         except (ValueError, TypeError):
             return None
-    while len(stack) > 0:
-        output_list.append(stack.pop())
+    while len(b) > 0:
+        output_list.append(b.pop())
     try:
         while len(output_list) > 0:
             a = output_list.pop(0)
             if isinstance(a, float):
-                stack.append(a)
+                b.append(a)
             else:
-                a2 = stack.pop()
-                a1 = stack.pop()
+                a2 = b.pop()
+                a1 = b.pop()
                 if a is "+":
-                    stack.append(a1 + a2)
+                    b.append(a1 + a2)
                 elif a is "-":
-                    stack.append(a1 - a2)
+                    b.append(a1 - a2)
                 elif a is "/":
                     try:
-                        stack.append(a1 / a2)
+                        b.append(a1 / a2)
                     except ZeroDivisionError:
                         return None
                 elif a is "*":
-                    stack.append(a1 * a2)
+                    b.append(a1 * a2)
     except IndexError:
         return None
-    if len(stack) != 1:
+    if len(b) != 1:
         return None
-    return stack[0]
+    return b[0]
